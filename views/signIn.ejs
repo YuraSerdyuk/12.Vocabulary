@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Welcome to vocabulary</title>
+        <link rel="stylesheet" href="signIn_style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="logo">
+            <p class="ur">چمک</p>
+            <p class="ch">詞彙表</p>
+            <p class="it">GLOSARIO</p>
+            <p class="ua">СЛОВНИК</p>
+            <p class="en">VOCABULARY</p>
+            <p class="ua">СЛОВНИК</p>
+            <p class="it">GLOSARIO</p>
+            <p class="ch">詞彙表</p>
+            <p class="ur">چمک</p>
+        </div>
+
+        <div id="form">
+            <input id="email_input" type="text" name="email_input" placeholder="Email">
+            <input id="password_input" type="password" name="password_input" placeholder="Password">
+
+            <p id="warning"></p>
+            <input id="signIn_button" type="button" name="signIn_button" value="Sign in">
+            <input id="signUp_button" type="button" name="signUp_button" value="Sign up">
+        </div>
+
+
+        <script>
+            var signIn_button = document.getElementById('signIn_button');
+            var signUp_button = document.getElementById('signUp_button');
+            var warning = document.getElementById("warning")
+
+            signIn_button.addEventListener('click', function () {
+                var email_data = document.getElementById('email_input').value;
+                var password_data = document.getElementById('password_input').value;
+                
+                if (email_data.length == 0 || password_data.length == 0) {
+                    warning.innerHTML = "Fill in all the fields"
+                } else {
+                    fetch('/signIn', {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify({  // тіло запроса
+                        email_data:     email_data,
+                        password_data:  password_data
+                    }), // data can be `string` or {object}!
+                    headers: new Headers({
+                    'Content-Type': 'application/json'
+                    })
+                    }).then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        console.log('Success:', response)
+                        warning.innerHTML = response.warning
+                        if (response.triger == true) {
+                            window.location.replace('home?' + response.session)
+                        }
+                    });
+                }
+            })
+
+            signUp_button.addEventListener('click', function () {
+                window.location.replace('registration')
+            })
+        </script>
+    </body>
+</html>

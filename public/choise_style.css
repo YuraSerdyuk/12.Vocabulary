@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    height: 67px;
+    border-bottom: 1px solid #dfb455;
+}
+
+#name_logo {
+    width: 90%;
+    float: left;
+}
+
+#name_logo p {
+    font-family: Corbel;
+    font-size: 30px;
+    font-weight: 800;
+    color: #540606;
+    text-align: center;
+    margin: 17px 0 10px 10%;
+}
+
+#back {
+    width: 10%;
+    height: 67px;
+    float: right;
+    cursor: pointer;
+}
+
+#back p {
+    font-family: Corbel;
+    font-size: 14px;
+    font-weight: 800;
+    color: black;
+    text-align: center;
+    margin: 25px 6px 0 0;
+}
+
+
+
+
+.form {
+    width: 160px;
+    margin: 0 auto;
+}
+
+input:focus {
+    outline-offset: 0px;
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+#choise {
+    width: 160px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 110px;
+    padding-left: 5px;
+    background-color: white;
+}
+
+#choise_kind, #choise_order {
+    width: 160px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+    padding-left: 5px;
+    background-color: white;
+}
+
+#begin {
+    width: 160px;
+    height: 30px;
+    border-radius: 10px;
+    border-style: none;
+    text-align: center;
+    background-color: #f3c45d;
+    color: white;
+    margin-top: 20px;
+    font-family: Corbel;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+#warning {
+    font-family: Corbel;
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin: 4px 0 0 20px;
+    position: absolute;
+}

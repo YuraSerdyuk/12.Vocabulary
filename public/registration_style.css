@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    margin-top: 30px;
+}
+
+#logo p {
+    text-align: center;
+    font-family: Corbel;
+    line-height: 1.1;
+}
+
+.ur {
+    font-size: 10px;
+    color:  #8f3838;
+    font-weight: 200;
+}
+
+.ch {
+    font-size: 15px;
+    color: #9d5b60;
+    font-weight: 200;
+}
+
+.it {
+    font-size: 20px;
+    color: #923d0f;
+    font-weight: 200;
+}
+
+.ua {
+    font-size: 25px;
+    color: #891616;
+    font-weight: 200;
+}
+
+.en {
+    font-size: 30px;
+    color: #540606;
+    font-weight: 800;
+}
+
+
+
+#form {
+    width: 167px;
+    margin: 52px auto 0 auto;
+}
+
+input:focus {
+    outline-offset: 0px;
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+#email_input, #password_input, #repeat_password_input {
+    width: 160px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 8px;
+    padding-left: 5px;
+}
+
+#email_input::placeholder , #password_input::placeholder, #repeat_password_input::placeholder {
+    font-family: Corbel;
+    font-size: 11px;
+    color: #8b6060;
+    text-align: center;
+    font-weight: 800;
+}
+
+#warning {
+    font-family: Corbel;
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-top: 4px;
+}
+
+#signUp_button {
+    width: 167px;
+    height: 30px;
+    border-radius: 10px;
+    border-style: none;
+    text-align: center;
+    color: white;
+    font-family: Corbel;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+#signUp_button {
+    background-color: #690c0c;
+    margin-top: 8px;
+}
+
+#redirect {
+    font-family: Corbel;
+    font-size: 12px;
+    font-weight: 800;
+    color: #540606;
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 7px;
+    cursor: pointer;
+}

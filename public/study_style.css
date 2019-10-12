@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    height: 67px;
+    border-bottom: 1px solid #dfb455;
+}
+
+#name_logo {
+    width: 90%;
+    float: left;
+}
+
+#name_logo p {
+    font-family: Corbel;
+    font-size: 30px;
+    font-weight: 800;
+    color: #540606;
+    text-align: center;
+    margin: 17px 0 10px 10%;
+}
+
+#back {
+    width: 10%;
+    height: 67px;
+    float: right;
+    cursor: pointer;
+}
+
+#back a {
+    font-family: Corbel;
+    font-size: 14px;
+    font-weight: 800;
+    color: black;
+    text-align: center;
+    margin: 27px 6px 0 0;
+    display: block;
+    text-decoration: none;
+}
+
+
+
+.block {
+    width: 190px;
+    height: 190px;
+    margin: 0 auto;
+    margin-top: 190px;
+}
+
+#word, h2 {
+    font-family: Corbel;
+    font-size: 24px;
+    font-weight: 800;
+    color: #540606;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+h2 {
+    display: none;
+}
+
+#trans {
+    font-family: Corbel;
+    font-size: 15px;
+    font-weight: 800;
+    color: #dfb455;
+    text-align: center;
+    margin: 5px 0 5px 0;
+    display: none;
+}
+
+
+#Yes, #No {
+    width: 90px;
+    height: 40px;
+    float: left;
+    margin-top: 50px;
+    border-style: none;
+    color: white;
+    cursor: pointer;
+    display: none;
+}
+
+#No {
+    border-radius: 10px 0 0 10px;
+    background: linear-gradient(90deg, rgba(84,6,6,1) 90%, #aa6c31 100%);
+}
+
+#Yes {
+    border-radius: 0 10px 10px 0;
+    background: linear-gradient(90deg, #aa6c31 0%, rgba(241,192,84,1) 10%);
+}
+
+#next {
+    width: 90px;
+    height: 40px;
+    margin: 50px auto 0 auto;
+    border-style: none;
+    color: white;
+    cursor: pointer;
+    display: block;
+    border-radius: 10px;
+    background-color: rgba(241,192,84,1);
+}
+
+.warning {
+    font-family: Corbel;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+}

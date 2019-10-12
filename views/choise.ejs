@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="choise_style.css">
+    <title>Choose the topic and kind | VOCABULARY</title>
+</head>
+<body>
+        <div class="logo">
+            <span id="name_logo"><p>CHOOSE</p></span>
+            <span id="back"><p>back</p></span>
+        </div>
+
+
+        <div class="form">
+            <select name="choise" id="choise">
+                <option value="Select the topic" selected disabled>Select the topic</option>
+                <% for (let i = 0; i < topics_data.length; i++) { %>
+                    <option><%= topics_data[i].topic %></option>
+                <% } %>
+            </select>
+
+            <select name="choise" id="choise_kind">
+                <option value="Select the kind" selected disabled>Select the kind</option>
+                <option>English-Ukrainian</option>
+            </select>
+
+            <select name="choise" id="choise_order">
+                <option value="Select the word order" selected disabled>Select the word order</option>
+                <option>Alternately</option>
+                <option>Randomly</option>
+            </select>
+            
+            <p id="warning"></p>
+    
+            <input id="begin" type="button" name="begin" value="Let's begin">
+            
+        </div>
+        
+        <script>
+            var begin = document.getElementById("begin")
+            var warning = document.getElementById("warning")
+            var back = document.getElementById("back")
+
+            begin.addEventListener('click', function() {
+                var choise_topic = document.getElementById("choise");
+                var choise_kind = document.getElementById("choise_kind");
+                var choise_order = document.getElementById("choise_order");
+                choise_topic = choise_topic.options[choise_topic.selectedIndex].value;
+                choise_kind = choise_kind.options[choise_kind.selectedIndex].value;
+                choise_order = choise_order.options[choise_order.selectedIndex].value;
+
+                if (choise_topic != 'Select the topic' && choise_kind != 'Select the kind' && choise_order != 'Select the word order') {
+                    fetch('/choise', {
+                    method: 'POST', // or 'PUT'
+                    body: JSON.stringify({  // тіло запроса
+                        topic_data: choise_topic,
+                        kind_data:  choise_kind,
+                        order_data: choise_order
+                    }), // data can be `string` or {object}!
+                    headers: new Headers({
+                    'Content-Type': 'application/json'
+                    })
+                    }).then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        console.log('Success:', response)
+                        window.location.replace('study?' + response.kind_data + '?' + response.topic_data + '?' + response.order_data)
+                    });
+
+                } else {
+                    warning.innerText = "Please, select something"
+                }
+            });
+
+            back.addEventListener('click', function() {
+                window.location.replace('/home')
+            });
+        </script>
+</body>
+</html>

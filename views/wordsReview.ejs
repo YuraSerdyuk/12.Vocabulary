@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="wordsReview_style.css">
+    <title>Words review | Vocabulary</title>
+</head>
+<body>
+    <div class="logo">
+        <span id="name_logo"><p>Words review</p></span>
+        <span id="back"><p>back</p></span>
+    </div>
+        <% for (let i = 0; i < topic_docs.length; i++) { %>
+            <div id="topic">
+                <div class="header">
+                    <div class="div_topic">
+                        <p id="name_topic"><%= topic_docs[i].topic %></p>      
+                    </div>
+                </div>
+                <% var arr = [] %>
+                <% if (word_docs == false) { %>
+                    <p class="warning">For this topic you don't have a words</p>
+                <% } else { %>
+                    <% for (let y = 0; y < word_docs.length; y++) { %>
+                        <% if (topic_docs[i].topic != word_docs[y].topic)  {%>
+                            <% arr.push('no') %>
+                            <% if (word_docs.length == Number(arr.length) + Number(1))  { %>
+                                <p class="warning">For this topic you don't have a words</p>
+                            <% } %>
+                        <% } else { %>
+                            <% break %>
+                        <% } %>
+                    <% } %>
+                <% } %>
+
+                <% for (let z = 0; z < word_docs.length; z++) { %>
+                    <% if (topic_docs[i].topic == word_docs[z].topic)  {%>
+                        <div id="words">
+                            <p>
+                                <% if (word_docs[z].status == ' ') { %>
+                                    <span></span>
+                                    <%= word_docs[z].word %> - <%= word_docs[z].translation %>
+                                <% } %>
+                            </p>
+                        </div>
+                    <% } %>
+                <% } %>
+
+            </div>
+        <% } %>
+    <script>
+    var back = document.getElementById("back")
+
+    back.addEventListener('click', function() {
+        window.location.replace('/home')
+    });
+    </script>
+</body>
+</html>

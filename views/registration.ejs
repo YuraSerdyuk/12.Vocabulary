@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="registration_style.css">
+    <title>Registration</title>
+</head>
+<body>
+    <div id="logo">
+        <p class="ur">چمک</p>
+        <p class="ch">詞彙表</p>
+        <p class="it">GLOSARIO</p>
+        <p class="ua">СЛОВНИК</p>
+        <p class="en">VOCABULARY</p>
+        <p class="ua">СЛОВНИК</p>
+        <p class="it">GLOSARIO</p>
+        <p class="ch">詞彙表</p>
+        <p class="ur">چمک</p>
+    </div>
+
+    <div id="form">
+        <input id="email_input" type="text" name="email_input" placeholder="Email">
+        <input id="password_input" type="password" name="password_input" placeholder="Password">
+        <input id="repeat_password_input" type="password" name="repeat_password_input" placeholder="Repeat password">
+
+        <p id="warning"></p>
+        <input id="signUp_button" type="button" name="signUp_button" value="Sign up">
+        <p id="redirect">l have an aсcount</p>
+    </div>
+
+    <script>
+        var signUp_button = document.getElementById("signUp_button")
+        var redirect = document.getElementById("redirect")
+        var warning = document.getElementById("warning")
+
+        signUp_button.addEventListener('click', function() {
+            var email_data = document.getElementById('email_input').value;
+            var password_data = document.getElementById("password_input").value;
+            var repeat_password_data = document.getElementById("repeat_password_input").value;
+
+            if (email_data.length == 0 || password_data.length == 0 || repeat_password_data.length == 0) {
+                warning.innerHTML = "Fill in all the fields"
+            } else if (password_data != repeat_password_data) {
+                warning.innerHTML = "Passwords must be identical"
+            } else {
+                warning.innerHTML = ""
+
+                fetch('/registration', {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify({  // тіло запроса
+                    email_data:            email_data,
+                    password_data:         password_data,
+                    repeat_password_data:  repeat_password_data
+                }), // data can be `string` or {object}!
+                headers: new Headers({
+                'Content-Type': 'application/json'
+                })
+                }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => {
+                    console.log('Success:', response)
+                    warning.innerHTML = response.warning
+                    if (response.triger == true) {
+                        window.location.replace("/")
+                    }
+                });
+            }
+        });
+
+        redirect.addEventListener('click', function() {
+            window.location.replace("/")
+        });
+    </script>
+</body>
+</html>

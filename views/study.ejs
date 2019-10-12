@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="study_style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="logo">
+        <span id="name_logo"><p>STUDY</p></span>
+        <span id="back"><a href="/choise">back</a></span>
+    </div>
+
+    <div class="block">
+        <% if(word_docs == '') { %>
+            <p class="warning">You don't have a words</p>
+        <% } else { %>
+            <h1 id="word"><%= word_docs[0].word %></h1>
+            <p id="trans">translation:</p>
+            <h2 id="transText"><%= word_docs[0].translation %></h2>
+            <input id="next" type="button" value="Next">
+        <% } %>
+    </div>
+
+    <script>
+        var word_order = window.location.href;
+        word_order = word_order.split('?')[3]
+
+        var word = document.getElementById("word")
+        var transText = document.getElementById("transText")
+        var next = document.getElementById("next")
+
+        var obj = '<%- JSON.stringify(word_docs) %>'
+        obj = JSON.parse(obj)
+        if (word_order == 'Randomly') {
+            function randomWord() {
+                var  rand = 0 + Math.random() * ((obj.length - 1) + 1 - 0);
+                rand = Math.floor(rand);
+                document.getElementById("word").innerHTML = obj[rand].word
+                document.getElementById("transText").innerHTML = obj[rand].translation
+
+                document.getElementById("trans").style.display = "none"
+                document.getElementById("transText").style.display = "none"
+            }
+        } else if ( word_order == 'Alternately') {
+            var length = 0;
+            function alternately() {
+                length++
+                if (obj.length == length) {
+                    length = 0
+                }
+                word.innerHTML = obj[length].word
+                transText.innerHTML = obj[length].translation
+            }
+        }
+
+        next.addEventListener('click', function() {
+            if (word_order == 'Alternately') {alternately()}
+            else if (word_order == 'Randomly') {randomWord()}
+            document.getElementById("trans").style.display = "none"
+            document.getElementById("transText").style.display = "none"
+        })
+        
+        word.addEventListener('click', function() {
+            document.getElementById("trans").style.display = "block"
+            document.getElementById("transText").style.display = "block"
+        })
+    </script>
+</body>
+</html>

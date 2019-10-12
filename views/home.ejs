@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home_style.css">
+    <title>HOME | Vocabulary</title>
+</head>
+<body>
+    <section id="create_window" style="display: none;">
+        <div id="shadow"></div>
+        <div class="window">
+            <p>Create topic</p>
+            <input id="topic_input" type="text" name="topic_input" placeholder="Name topic">
+            <input id="topic_button" type="button" name="topic_button" value="Enter">
+            <p id="warning2"></p>
+        </div>
+    </section>
+
+
+    <div class="logo">
+        <span id="name_logo"><p>VOCABULARY</p></span>
+        <span id="exit"><p>exit</p></span>
+    </div>
+    
+    <div class="form">
+        <input id="word_input" type="text" name="word_input" placeholder="Word">
+        <p class="line">-</p>
+        <input id="translation_input" type="text" name="translation_input" placeholder="Translation">
+
+        <select name="choice" id="choice" onchange="changeColor()"">
+            <option value="awd" selected disabled>Select topic</option>
+            <% if (topic_data != false) { %>
+                <% for (let i = 0; i < topic_data.length; i++) { %>
+                    <option><%= topic_data[i].topic %></option>
+                <% } %>
+            <% } %>
+
+            <option value="create">Create topic</option>
+        </select>
+        <input id="word_button" type="button" name="word_button" value="Enter">
+
+        <p id="warning"></p>
+
+        <input id="study_button" type="button" name="study_button" value="STUDY">
+        
+        <input id="wordReview_button" type="button" name="wordReview_button" value="Word review">
+    </div>
+
+    <script>
+        var create_window = document.getElementById("create_window")
+        var shadow = document.getElementById("shadow")
+        var topic_button = document.getElementById("topic_button")
+
+        var word_button = document.getElementById("word_button")
+        var wordReview_button = document.getElementById("wordReview_button")
+        var choise = document.getElementById('study_button')
+        var exit = document.getElementById("exit")
+        var warning = document.getElementById('warning')
+        var cr_topic = document.getElementById('cr_topic')
+
+        word_button.addEventListener('click', function() {
+            var word_input = document.getElementById("word_input").value
+            var translation_input = document.getElementById("translation_input").value
+            var choice_div = document.getElementById("choice")
+            var choice = choice_div.options[choice_div.selectedIndex].text;
+            
+            if (word_input.length == 0 || translation_input.length == 0 || choice == 'Select topic' ){
+                warning.innerHTML = "Fill in all the field and select topic"
+            } else {
+                console.log(word_input, translation_input, choice);
+                fetch('/home', {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify({  // тіло запроса
+                    word_data:         word_input,
+                    translation_data:  translation_input,
+                    choice_data:       choice
+                }), // data can be `string` or {object}!
+                headers: new Headers({
+                'Content-Type': 'application/json'
+                })
+                }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => {
+                    console.log('Success:', response)
+                    warning.innerHTML = response.warning
+                    if (response.triger == true) {
+                        document.getElementById("word_input").value = ''
+                        document.getElementById("translation_input").value = ''
+                    }
+                });
+            }
+        });
+
+        function changeColor() {
+            var choice = document.getElementById("choice");
+            var curent_choise = choice.options[choice.selectedIndex].value;
+            if (curent_choise == 'create') {
+                create_window.style = "display: block;"
+            }
+        }
+
+        shadow.addEventListener('click', function() {
+            create_window.style = "display: none;"
+            var choice = document.getElementById("choice");
+            choice.selectedIndex = 0
+        });
+
+        topic_button.addEventListener('click', function() {
+            var topic_input = document.getElementById("topic_input").value;
+            var full_topic_input = str.replace(/[\s]+/g, '')
+            var warning2 = document.getElementById("warning2")
+
+            if (topic_input != '') {
+                fetch('/cr_topic', {
+                method: 'POST', // or 'PUT'
+                body: JSON.stringify({  // тіло запроса
+                    topic_data: topic_input.replace(/[\s]+/g, '')
+                }), // data can be `string` or {object}!
+                headers: new Headers({
+                'Content-Type': 'application/json'
+                })
+                }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => {
+                    console.log('Success:', response)
+                    warning2.innerHTML = response.warning
+                    setTimeout(() => {
+                        window.location.replace('/home')
+                    }, 1000);
+                });
+            } else {
+                warning2.innerHTML = 'Fill in the field'
+            }
+        });
+
+        wordReview_button.addEventListener('click', function() {
+            window.location.replace('/wordsReview')
+        });
+
+        choise.addEventListener('click', function() {
+            window.location.replace("/choise")
+        });
+
+        exit.addEventListener('click', function() {
+            window.location.replace("/")
+        });
+    </script>
+</body>
+</html>
