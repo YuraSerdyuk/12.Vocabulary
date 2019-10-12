@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
+var port = process.env.PORT || 5000;
+var url = process.env.MONGODB_URI || 'mongodb://test:11111@cluster0-shard-00-00-pak5q.mongodb.net:27017,cluster0-shard-00-01-pak5q.mongodb.net:27017,cluster0-shard-00-02-pak5q.mongodb.net:27017/vocabulary?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority'
 
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser');
@@ -9,7 +11,7 @@ var mongoose = require('mongoose');
 
 app.set('view engine', 'ejs');
 
-mongoose.connect('mongodb://localhost/Vocabulary', { useNewUrlParser: true }, function(err) {
+mongoose.connect(url, { useNewUrlParser: true }, function(err) {
     if(err) throw err;
     console.log('Successfully connected!');
 })
@@ -27,9 +29,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
-
-
-
 
 app.get('/', function (req, res) {
     req.session.destroy();
@@ -449,6 +448,6 @@ app.get('/study', function(req, res) {
     });
 });
 
-http.listen(5000, function () {
+http.listen(port, function () {
   console.log('listening on: 5000 port');  
 });
