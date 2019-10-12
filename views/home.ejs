@@ -108,7 +108,7 @@
 
         topic_button.addEventListener('click', function() {
             var topic_input = document.getElementById("topic_input").value;
-            var full_topic_input = str.replace(/[\s]+/g, '')
+            var full_topic_input = topic_input.replace(/[\s]+/g, '')
             var warning2 = document.getElementById("warning2")
 
             if (topic_input != '') {
