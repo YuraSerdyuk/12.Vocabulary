@@ -19,8 +19,8 @@
         </div>
 
         <div id="form">
-            <input id="email_input" type="text" name="email_input" placeholder="Email">
-            <input id="password_input" type="password" name="password_input" placeholder="Password">
+            <input id="email_input" type="text" name="email_input" placeholder="Email" value="yurko7203@gmail.com">
+            <input id="password_input" type="password" name="password_input" placeholder="Password" value="1111">
 
             <p id="warning"></p>
             <input id="signIn_button" type="button" name="signIn_button" value="Sign in">
@@ -53,9 +53,10 @@
                     .catch(error => console.error('Error:', error))
                     .then(response => {
                         console.log('Success:', response)
-                        warning.innerHTML = response.warning
                         if (response.triger == true) {
-                            window.location.replace('home?' + response.session)
+                            window.location.replace('home')
+                        } else if (response.triger == false) {
+                            warning.innerHTML = 'Incorrect email or password'
                         }
                     });
                 }

@@ -59,10 +59,14 @@
 }
 
 h2 {
+    width: 190px;
     display: none;
+    position: absolute;
+    margin-top: 30px;
 }
 
 #trans {
+    width: 190px;
     font-family: Corbel;
     font-size: 15px;
     font-weight: 800;
@@ -70,6 +74,7 @@ h2 {
     text-align: center;
     margin: 5px 0 5px 0;
     display: none;
+    position: absolute;
 }
 
 
@@ -97,7 +102,7 @@ h2 {
 #next {
     width: 90px;
     height: 40px;
-    margin: 50px auto 0 auto;
+    margin: 80px auto 0 auto;
     border-style: none;
     color: white;
     cursor: pointer;

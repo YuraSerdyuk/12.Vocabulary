@@ -29,13 +29,15 @@
     cursor: pointer;
 }
 
-#back p {
+#back a {
     font-family: Corbel;
     font-size: 14px;
     font-weight: 800;
     color: black;
     text-align: center;
-    margin: 25px 6px 0 0;
+    margin: 27px 6px 0 0;
+    display: block;
+    text-decoration: none;
 }
 
 
