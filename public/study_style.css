@@ -49,6 +49,11 @@
     margin-top: 190px;
 }
 
+.block2 {
+    width: 190px;
+    min-height: 111px;
+}
+
 #word, h2 {
     font-family: Corbel;
     font-size: 24px;
@@ -61,8 +66,6 @@
 h2 {
     width: 190px;
     display: none;
-    position: absolute;
-    margin-top: 30px;
 }
 
 #trans {
@@ -74,7 +77,6 @@ h2 {
     text-align: center;
     margin: 5px 0 5px 0;
     display: none;
-    position: absolute;
 }
 
 
@@ -102,7 +104,7 @@ h2 {
 #next {
     width: 90px;
     height: 40px;
-    margin: 80px auto 0 auto;
+    margin: 0px auto 0 auto;
     border-style: none;
     color: white;
     cursor: pointer;

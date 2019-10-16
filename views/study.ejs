@@ -16,9 +16,11 @@
         <% if(word_docs == '') { %>
             <p class="warning">You don't have a words</p>
         <% } else { %>
-            <h1 id="word"><%= word_docs[0].word %></h1>
-            <p id="trans">translation:</p>
-            <h2 id="transText"><%= word_docs[0].translation %></h2>
+            <div class="block2">
+                <h1 id="word"><%= word_docs[0].word %></h1>
+                <p id="trans">translation:</p>
+                <h2 id="transText"><%= word_docs[0].translation %></h2>
+            </div>
             <input id="next" type="button" value="Next">
         <% } %>
     </div>

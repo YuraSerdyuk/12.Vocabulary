@@ -30,6 +30,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
 
+
 app.get('/', function (req, res) {
     req.session.destroy();
     console.log(req.session);
@@ -134,22 +135,24 @@ app.post('/registration', function (req, res) {
 
 app.get('/home', function(req, res) {
     var username = req.session.username;
-    console.log('username: ' + username);
-            
-    try {
-        var Topic_model = mongoose.model('topic');
-    } catch (error) {
-        var Topic_model = mongoose.model('topic', {
-            username: String,
-            topic: String})
-    }
+    if (username == undefined) {
+        res.redirect('/')
+    } else {     
+        try {
+            var Topic_model = mongoose.model('topic');
+        } catch (error) {
+            var Topic_model = mongoose.model('topic', {
+                username: String,
+                topic: String})
+        }
 
-    Topic_model.find({username: username}, function(err, docs) {
-        var topic_data = docs;
-        res.render('home', {
-            topic_data: topic_data
-        })
-    });
+        Topic_model.find({username: username}, function(err, docs) {
+            var topic_data = docs;
+            res.render('home', {
+                topic_data: topic_data
+            })
+        });
+    }
 });
 
 app.post('/home', function(req, res) {
@@ -215,75 +218,83 @@ app.post('/cr_topic', function(req, res) {
 app.get('/wordsReview', function(req, res) {
     var username = req.session.username;
 
-    try {
-        var Topic_model = mongoose.model('topic');
-    } catch (error) {
-        var Topic_model = mongoose.model('topic', {
-            username: String,
-            topic: String})
-    }
-
-    Topic_model.find({username: username}, function(err, docs) {
-        if (docs != '') {
-            var topic_docs = docs
-            console.log('User have topics: ' + topic_docs);
-
-            try {
-                var Word_model = mongoose.model('Word');
-            } catch (error) {
-                var Word_model = mongoose.model('Word', {
-                    username: String,
-                    word: String,
-                    translation: String,
-                    topic: String,
-                    status: String})
-            }
-
-            Word_model.find({username: username}, function(err, docs) {
-                if (docs != '') {
-                    var word_docs = docs
-
-                    res.render('wordsReview', {
-                        word_docs:  word_docs,
-                        topic_docs: topic_docs
-                    })
-                } else {
-                    console.log('No words found');
-                    res.render('wordsReview', {
-                        word_docs:  false,
-                        topic_docs: topic_docs
-                    })
-                }
-            });
-        } else {
-            console.log('No topics found');
-            res.render('wordsReview', {
-                topic_docs: false
-            })
+    if (username == undefined) {
+        res.redirect('/')
+    } else {
+        try {
+            var Topic_model = mongoose.model('topic');
+        } catch (error) {
+            var Topic_model = mongoose.model('topic', {
+                username: String,
+                topic: String})
         }
-    });
+
+        Topic_model.find({username: username}, function(err, docs) {
+            if (docs != '') {
+                var topic_docs = docs
+                console.log('User have topics: ' + topic_docs);
+
+                try {
+                    var Word_model = mongoose.model('Word');
+                } catch (error) {
+                    var Word_model = mongoose.model('Word', {
+                        username: String,
+                        word: String,
+                        translation: String,
+                        topic: String,
+                        status: String})
+                }
+
+                Word_model.find({username: username}, function(err, docs) {
+                    if (docs != '') {
+                        var word_docs = docs
+
+                        res.render('wordsReview', {
+                            word_docs:  word_docs,
+                            topic_docs: topic_docs
+                        })
+                    } else {
+                        console.log('No words found');
+                        res.render('wordsReview', {
+                            word_docs:  false,
+                            topic_docs: topic_docs
+                        })
+                    }
+                });
+            } else {
+                console.log('No topics found');
+                res.render('wordsReview', {
+                    topic_docs: false
+                })
+            }
+        });
+    }
 });
 
 app.get('/choise', function(req, res) {
     var username = req.session.username;
 
-    try {
-        var Topic = mongoose.model('Topic')
-    } catch (error) {
-        var Topic = mongoose.model('Topic', {
-            username: String,
-            topic: String})
-    }
-
-    Topic.find({username: username}, function(err, docs) {
-        if ( docs != '') {
-            var topics_data = docs;
-            
-            res.render('choise', {
-                topics_data: topics_data
-            })
+    if (username == undefined) {
+        res.redirect('/')
+    } else {
+        try {
+            var Topic = mongoose.model('Topic')
+        } catch (error) {
+            var Topic = mongoose.model('Topic', {
+                username: String,
+                topic: String})
         }
-    })
+
+        Topic.find({username: username}, function(err, docs) {
+            if ( docs != '') {
+                var topics_data = docs;
+                
+                res.render('choise', {
+                    topics_data: topics_data
+                })
+            }
+        })
+    }
 })
 
 app.post('/choise', function(req, res) {
@@ -300,29 +311,34 @@ app.get('/study', function(req, res) {
     var name_topic = full_name_topic.split('?')[2]
     var username = req.session.username;
 
-    try {
-        var Word_model = mongoose.model('Word');
-    } catch (error) {
-        var Word_model = mongoose.model('Word', {
-            username: String,
-            word: String,
-            translation: String,
-            topic: String,
-            status: String})
-    }
-
-    Word_model.find({username: username, topic: name_topic}, function(err, docs) {
-        if (docs != '') {
-            var word_docs = docs;
-            res.render('study', {
-                word_docs: word_docs
-            })
-        } else {
-            res.render('study', {
-                word_docs: ''
-            })
+    if (username == undefined) {
+        res.redirect('/')
+    } else {
+        
+        try {
+            var Word_model = mongoose.model('Word');
+        } catch (error) {
+            var Word_model = mongoose.model('Word', {
+                username: String,
+                word: String,
+                translation: String,
+                topic: String,
+                status: String})
         }
-    })
+
+        Word_model.find({username: username, topic: name_topic}, function(err, docs) {
+            if (docs != '') {
+                var word_docs = docs;
+                res.render('study', {
+                    word_docs: word_docs
+                })
+            } else {
+                res.render('study', {
+                    word_docs: ''
+                })
+            }
+        })
+    }
 })
 
 http.listen(port, function () {
