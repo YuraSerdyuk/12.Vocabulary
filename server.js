@@ -197,7 +197,7 @@ app.post('/cr_topic', function(req, res) {
         var Topic = mongoose.model('topic')
     } catch (error) {
         var Topic = mongoose.model('topic', {
-            user_id: String,
+            username: String,
             topic: String})
     }
 
